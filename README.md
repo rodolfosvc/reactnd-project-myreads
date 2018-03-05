@@ -9,3 +9,9 @@ The backend API uses a fixed set of cached search results and is limited to a pa
 ## Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+
+##How to run the project
+
+1 - Clone this git repository
+2 - Go to the directory, and run 'npm install' or 'yarn install' in the directory
+3 - Still in the directory, run 'npm start' or 'yarn start' to start the application

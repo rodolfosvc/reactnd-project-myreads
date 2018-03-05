@@ -11,7 +11,7 @@ class BooksApp extends Component {
   }
 
   componentDidMount(){
-    BooksAPI.getAll().then( (books) => { 
+    BooksAPI.getAll().then( (books) => {
       this.setState({books})
     })
   }
@@ -28,14 +28,10 @@ class BooksApp extends Component {
 
   render() {
     const { books } = this.state
-    const bookLists = [
-      {shelfTitle: 'Currently Reading', books}, 
-      {shelfTitle: 'Want to Read', books},
-      {shelfTitle: 'Read', books}
-    ]
+    const shelfTitleList = ['Currently Reading', 'Want to Read', 'Read']
     return (
       <div className="app">
-        <Route path="/search" render={ () => ( 
+        <Route path="/search" render={ () => (
           <SearchBook
             books={books}
             onUpdateBookStatus={this.updateBookStatus}
@@ -46,11 +42,11 @@ class BooksApp extends Component {
               <div className="list-books-title">
                 <h1>MyReads</h1>
               </div>
-              {bookLists.map( bookList => (
+              {shelfTitleList.map( shelfTitle => (
                 <BookList
-                  key={bookList.shelfTitle} 
-                  listTitle={bookList.shelfTitle}
-                  books={bookList.books}
+                  key={shelfTitle}
+                  listTitle={shelfTitle}
+                  books={books}
                   onUpdateBookStatus={this.updateBookStatus}
                 />
               ))}
@@ -58,7 +54,7 @@ class BooksApp extends Component {
                 <Link to="/search">Add a book</Link>
               </div>
           </div>
-        )}/>   
+        )}/>
     </div>
     )
   }

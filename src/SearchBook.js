@@ -19,6 +19,7 @@ class SearchBook extends Component {
 			BooksAPI.search(query).then( (result) => {
 				if(result && !result.error){
 					foundBooks = result
+					foundBooks = this.setFoundBooksShelf(foundBooks)
 				}else{
 					foundBooks = []
 				}
@@ -29,37 +30,35 @@ class SearchBook extends Component {
 			this.setState({foundBooks, searching: false})
 		}
 	}, 500)
-		
-	saerchOnChange = (query) => {
-		this.setState({query: query.trim(), searching: true})
+
+	searchOnChange = (query) => {
+		this.setState({query: query, searching: true})
 		this.findBook(query)
 	}
 
 	setFoundBooksShelf(foundBooks){
 		const { books } = this.props
 
-		foundBooks = foundBooks.map((book) => {
-			var existingBook = books.filter(b => b.id === book.id)[0]
+		return foundBooks.map((foundBook) => {
+			var existingBook = books.find(book => book.id === foundBook.id)
 			if(existingBook)
-				book.shelf = existingBook.shelf
+				foundBook.shelf = existingBook.shelf
 			else
-				book.shelf = "none"
-			return book
+				foundBook.shelf = "none"
+			return foundBook
 		})
-
 	}
 
 	render(){
   	const { foundBooks, query, searching } = this.state
   	const { onUpdateBookStatus } = this.props
-  	foundBooks.length > 0 && this.setFoundBooksShelf(foundBooks)
-    	
+
 		return (
 			<div className="search-books">
 		        <div className="search-books-bar">
 		          <Link to="/" className="close-search">Close</Link>
 		          <div className="search-books-input-wrapper">
-		            <input value={query} onChange={(e) => this.saerchOnChange(e.target.value)} type="text" placeholder="Search by title or author"/>
+		            <input value={query} onChange={(e) => this.searchOnChange(e.target.value)} type="text" placeholder="Search by title or author"/>
 		          </div>
 		        </div>
 		        <div className="search-books-results">
