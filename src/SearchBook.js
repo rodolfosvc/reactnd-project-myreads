@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
 import If from './If'
@@ -16,7 +17,7 @@ class SearchBook extends Component {
 	findBook = _.debounce((query) => {
 		let { foundBooks } = this.state
 		if(!_.isEmpty(query)){
-			BooksAPI.search(query).then( (result) => {
+			BooksAPI.search(query.trim()).then( (result) => {
 				if(result && !result.error){
 					foundBooks = result
 					foundBooks = this.setFoundBooksShelf(foundBooks)
@@ -50,8 +51,8 @@ class SearchBook extends Component {
 	}
 
 	render(){
-  	const { foundBooks, query, searching } = this.state
-  	const { onUpdateBookStatus } = this.props
+		const { foundBooks, query, searching } = this.state
+		const { onUpdateBookStatus } = this.props
 
 		return (
 			<div className="search-books">
@@ -81,6 +82,11 @@ class SearchBook extends Component {
 			</div>
 		)
 	}
+}
+
+SearchBook.propTypes = {
+	books: PropTypes.array.isRequired,
+	onUpdateBookStatus: PropTypes.func.isRequired
 }
 
 export default SearchBook

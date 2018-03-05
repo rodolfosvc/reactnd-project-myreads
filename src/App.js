@@ -1,6 +1,7 @@
 import React , {Component} from 'react'
-import * as BooksAPI from './BooksAPI'
 import { Link, Route } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import * as BooksAPI from './BooksAPI'
 import './App.css'
 import BookList from './BookList'
 import SearchBook from './SearchBook'
@@ -22,6 +23,7 @@ class BooksApp extends Component {
       ...book,
       shelf: newShelf
     })
+	book.shelf = newShelf
     BooksAPI.update({id: book.id}, newShelf)
     this.setState({books})
   }
@@ -58,6 +60,10 @@ class BooksApp extends Component {
     </div>
     )
   }
+}
+
+BooksApp.propTypes = {
+	books: PropTypes.array.isRequired
 }
 
 export default BooksApp

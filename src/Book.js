@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactStars from 'react-stars'
 import { Button, Glyphicon } from 'react-bootstrap'
+import PropTypes from 'prop-types'
 
 const Book = ({book, onUpdateBookStatus}) => {
 
@@ -29,6 +30,11 @@ const Book = ({book, onUpdateBookStatus}) => {
           <Button onClick={() => window.open(`${book.infoLink}`, "_blank")} bsSize="xsmall"><Glyphicon glyph="info-sign"/> information </Button>
         </div>
 	)
+}
+
+Book.propTypes = {
+	book: PropTypes.array.isRequired,
+	onUpdateBookStatus: PropTypes.func.isRequired
 }
 
 export default Book
